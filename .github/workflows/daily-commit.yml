@@ -1,0 +1,25 @@
+name: 🔥 Daily GitHub Streak Keeper
+on:
+  schedule:
+    - cron: "30 18 * * *"
+  workflow_dispatch:
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      - name: 📝 Update daily log file
+        run: |
+          echo "Last run at: $(date -u)" > last-run.txt
+      - name: 🔐 Set Git Config
+        run: |
+          git config user.name "Deelaka Herath"
+          git config user.email "245384539+herathdeelaka730-cell@users.noreply.github.com"
+      - name: ✅ Commit & Push
+        run: |
+          git add last-run.txt
+          git commit -m "chore: daily streak contribution 🤖🔥" || echo "Nothing to commit"
+          git push
